@@ -1,11 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   font-family: system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #ebebeb;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -19,7 +23,6 @@
   padding: 2rem;
 }
 
-/* nav */
 nav ul {
   list-style-type: none;
   margin: 0;
@@ -32,17 +35,17 @@ nav ul {
 
 nav a {
   display: block;
-  color: white;
+  color: rgb(20, 0, 171);
   text-align: center;
   padding: 1rem;
   text-decoration: none;
 }
 
 nav a:hover {
-  background-color: #111111;
+  background-color: #376fc4;
+  color: white;
 }
 
-/* media item card */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -75,29 +78,6 @@ td a {
   padding: 0.5rem;
 }
 
-/* media item dialog */
-dialog {
-  position: fixed;
-  top: 5%;
-  height: 80%;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 9999;
-  color: rgba(255, 255, 255, 0.87);
-}
-
-dialog img,
-video {
-  height: 70%;
-  object-fit: contain;
-}
-
-/* single view */
-img,
-video {
-  max-width: 100%;
-}
-
-/* Form */
 form {
   display: flex;
   flex-direction: column;
@@ -131,14 +111,4 @@ form textarea {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-button {
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #363636;
-  color: white;
-  border: none;
-  cursor: pointer;
 }
