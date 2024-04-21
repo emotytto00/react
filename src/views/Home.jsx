@@ -1,6 +1,5 @@
-import MediaRow from "./MediaRow";
-import { useState } from "react";
-import SingleView from "./SingleView";
+import {useState} from 'react';
+import MediaRow from '../components/MediaRow';
 
 const mediaArray = [
   {
@@ -22,7 +21,7 @@ const mediaArray = [
     filesize: 1002912,
     media_type: 'image/jpeg',
     title: 'Pic 2',
-    description: 'This is another placeholder picture.',
+    description: '',
     created_at: '2024-01-07T21:32:27.000Z',
   },
   {
@@ -38,6 +37,7 @@ const mediaArray = [
     created_at: '2024-01-07T20:48:13.000Z',
   },
 ];
+
 const Home = () => {
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -61,16 +61,13 @@ const Home = () => {
         <tbody>
           {mediaArray.map((item) => (
             <MediaRow
-            key={item.media_id}
-            item={item}
-            setSelectedItem={setSelectedItem}
+              key={item.media_id}
+              item={item}
+              setSelectedItem={setSelectedItem}
             />
           ))}
         </tbody>
       </table>
-      <SingleView
-      selectedItem={selectedItem}
-      setSelectedItem={setSelectedItem} />
     </>
   );
 };
