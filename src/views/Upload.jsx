@@ -1,33 +1,73 @@
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 
-const Upload = () => {
-  const [file, setFile] = useState('');
-  const [name, setName] = useState('');
+const baseApiUrl = 'http://127.0.0.1:3000';
 
-  const handleSubmit = (event) => {
+const Upload = () => {
+  const [file, setFile] = useState(null);
+  const [name, setName] = useState('');
+  const [apiResult, setApiResult] = useState(null);
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log('tiedostoa yritetään lähettää');
+
+    setApiResult(null);
 
     console.log('file', file);
     console.log('name', name);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('name', name);
+
+    const response = await fetch(`${baseApiUrl}/post-test`, {
+      method: 'post',
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    console.log('result', result);
+
+    setApiResult(result);
   };
 
   return (
     <>
+      {apiResult !== null && (
+        <div>
+          <img src={`${baseApiUrl}/${apiResult.file.path}`} />
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <input
           type="file"
           name="tiedosto"
-          onChange={(event) => setFile(event.target.value)}
+          onChange={(event) => {
+            setApiResult(null);
+            console.log('event', event);
+            setFile(event.target.files[0]);
+          }}
         />
         <br />
+
+        {file !== null && (
+          <p>
+            Preview:
+            <br />
+            <img src={URL.createObjectURL(file)} />
+          </p>
+        )}
+
         <label htmlFor="name">Name</label>
         <input
           type="text"
           id="name"
           name="name"
-          onChange={(event) => setName(event.target.value)}
+          onChange={(event) => {
+            setApiResult(null);
+            setName(event.target.value);
+          }}
         />
         <button
           className="
