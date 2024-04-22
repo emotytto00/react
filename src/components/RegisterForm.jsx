@@ -1,5 +1,6 @@
 import {useUser} from '../hooks/apiHooks';
 import useForm from '../hooks/formHooks';
+import Button from '../components/UI/Button';
 
 const RegisterForm = () => {
   const {register} = useUser();
@@ -39,15 +40,6 @@ const RegisterForm = () => {
           />
         </div>
         <div>
-          <label htmlFor="registerpassword">Password</label>
-          <input
-            name="password"
-            type="password"
-            id="registerpassword"
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
           <label htmlFor="registeremail">Email</label>
           <input
             name="email"
@@ -56,7 +48,16 @@ const RegisterForm = () => {
             onChange={handleInputChange}
           />
         </div>
-        <button type="submit">Register</button>
+        <div>
+          <label htmlFor="registerpassword">Password</label>
+          <input
+            name="password"
+            type="password"
+            id="registerpassword"
+            onChange={handleInputChange}
+          />
+        </div>
+        <Button text="Register" />
       </form>
     </>
   );
