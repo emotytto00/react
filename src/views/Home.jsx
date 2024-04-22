@@ -1,23 +1,33 @@
-import useMedia from '../hooks/ApiHooks';
-import {useState} from 'react';
-import SingleView from './SingleView';
-import MediaRow from './MediaRow';
+import MediaRow from '../components/MediaRow';
+import {useMedia} from '../hooks/ApiHooks';
 
 const Home = () => {
-  const [selectedItem, setSelectedItem] = useState(null);
+  // const [selectedItem, setSelectedItem] = useState(null);
 
   const {mediaArray} = useMedia();
 
   return (
     <>
-      <SingleView item={selectedItem} setSelectedItem={setSelectedItem} />
+      <h2>My Media</h2>
       <table>
+        <thead>
+          <tr>
+            <th>Thumbnail</th>
+            <th>Owner</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Created</th>
+            <th>Size</th>
+            <th>Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
         <tbody>
-          {mediaArray.map((mediaItem) => (
+          {mediaArray.map((item) => (
             <MediaRow
-              key={mediaItem.media_id}
-              item={mediaItem}
-              setSelectedItem={setSelectedItem}
+              key={item.media_id}
+              item={item}
+              // setSelectedItem={setSelectedItem}
             />
           ))}
         </tbody>
@@ -25,5 +35,4 @@ const Home = () => {
     </>
   );
 };
-
 export default Home;
