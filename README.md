@@ -1,5 +1,7 @@
 # React + Vite
 
+Click to view site -> [Click me!](https://users.metropolia.fi/~johalii/hooks/)
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
