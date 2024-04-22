@@ -19,7 +19,7 @@ const useMedia = () => {
 
       setMediaArray(mediaWithUser);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -37,6 +37,7 @@ const useUser = () => {
     );
     return userResult;
   };
+
   const getUserByToken = async (token) => {
     const options = {
       headers: {
@@ -49,6 +50,7 @@ const useUser = () => {
     );
     return tokenResult;
   };
+
   const register = async (inputs) => {
     const options = {
       method: 'POST',

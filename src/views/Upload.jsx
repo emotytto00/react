@@ -11,6 +11,7 @@ const Upload = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // clear possible previous api result
     setApiResult(null);
 
     console.log('file', file);
@@ -20,6 +21,7 @@ const Upload = () => {
     formData.append('file', file);
     formData.append('name', name);
 
+    // send local state values (name, file) to a backend
     const response = await fetch(`${baseApiUrl}/post-test`, {
       method: 'post',
       body: formData,
