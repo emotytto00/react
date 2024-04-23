@@ -1,24 +1,21 @@
-import {useState} from 'react';
-import LoginForm from '../components/LoginForm';
-import RegisterForm from '../components/RegisterForm';
-import Button from '../components/UI/Button';
+import {Link, Outlet} from 'react-router-dom';
 
-const Login = () => {
-  const [toggleForm, setToggleForm] = useState(true);
+const Layout = () => (
+  <div>
+    <header>
+      <nav>
+        <Link to="/">Etusivu 🏠</Link>
+        <Link to="/profile">Profiili 😃</Link>
+        <Link to="/upload">Upload ✨</Link>
+        <Link to="/login">Login 👌</Link>
+        <Link to="/logout">Logout 👋</Link>
+      </nav>
+    </header>
+    <main>
+      <Outlet />
+    </main>
+    <footer className="m-12 text-xl">Copyright 2024</footer>
+  </div>
+);
 
-  const toggle = () => {
-    setToggleForm(!toggleForm);
-  };
-
-  return (
-    <>
-      {toggleForm ? <LoginForm /> : <RegisterForm />}
-      <Button
-        text={toggleForm ? 'Not registered yet?' : 'Go to login'}
-        handleClick={toggle}
-      />
-    </>
-  );
-};
-
-export default Login;
+export default Layout;
