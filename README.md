@@ -1,6 +1,6 @@
 # React + Vite
 
-Click to view site -> [Click me!](https://users.metropolia.fi/~johalii/forms/)
+Click to view site -> [Click me!](https://users.metropolia.fi/~johalii/context/)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 

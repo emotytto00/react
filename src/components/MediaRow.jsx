@@ -14,7 +14,7 @@ const MediaRow = ({item}) => (
     <td>{item.media_type}</td>
     <td>
       <Link to={`/media/${item.media_id}`} state={{item}}>
-        View linkki
+        View link
       </Link>
     </td>
   </tr>

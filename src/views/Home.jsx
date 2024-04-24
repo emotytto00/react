@@ -1,13 +1,13 @@
 import MediaRow from '../components/MediaRow';
+import UserData from '../components/UserData';
 import {useMedia} from '../hooks/apiHooks';
 
 const Home = () => {
-  // const [selectedItem, setSelectedItem] = useState(null);
-
   const {mediaArray} = useMedia();
 
   return (
     <>
+      <UserData />
       <h2>My Media</h2>
       <table>
         <thead>
@@ -24,11 +24,7 @@ const Home = () => {
         </thead>
         <tbody>
           {mediaArray.map((item) => (
-            <MediaRow
-              key={item.media_id}
-              item={item}
-              // setSelectedItem={setSelectedItem}
-            />
+            <MediaRow key={item.media_id} item={item} />
           ))}
         </tbody>
       </table>
