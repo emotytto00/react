@@ -1,5 +1,6 @@
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, useHistory} from 'react-router-dom';
+import useFile from '../hooks/ApiHooks'; // Import useFile hook
 
 const baseApiUrl = 'http://127.0.0.1:3000';
 
@@ -7,11 +8,12 @@ const Upload = () => {
   const [file, setFile] = useState(null);
   const [name, setName] = useState('');
   const [apiResult, setApiResult] = useState(null);
+  const {postFile} = useFile(); // Initialize useFile hook
+  const history = useHistory(); // Initialize useHistory for redirection
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // clear possible previous api result
     setApiResult(null);
 
     console.log('file', file);
@@ -21,24 +23,22 @@ const Upload = () => {
     formData.append('file', file);
     formData.append('name', name);
 
-    // send local state values (name, file) to a backend
-    const response = await fetch(`${baseApiUrl}/post-test`, {
-      method: 'post',
-      body: formData,
-    });
+    const token = 'token';
 
-    const result = await response.json();
+    try {
+      await postFile(file, token);
 
-    console.log('result', result);
-
-    setApiResult(result);
+      history.push('/');
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
     <>
       {apiResult !== null && (
         <div>
-          <img src={`${baseApiUrl}/${apiResult.file.path}`} />
+          <img src={`${baseApiUrl}/${apiResult.file.path}`} alt="Uploaded" />
         </div>
       )}
       <form onSubmit={handleSubmit}>
@@ -57,7 +57,7 @@ const Upload = () => {
           <p>
             Preview:
             <br />
-            <img src={URL.createObjectURL(file)} />
+            <img src={URL.createObjectURL(file)} alt="Preview" />
           </p>
         )}
 

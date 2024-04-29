@@ -19,7 +19,7 @@ const useMedia = () => {
 
       setMediaArray(mediaWithUser);
     } catch (error) {
-      // console.log(error);
+      console.error('getMedia error', error);
     }
   };
 
@@ -27,7 +27,64 @@ const useMedia = () => {
     getMedia();
   }, []);
 
-  return {mediaArray};
+  const postMedia = async (file, inputs, token) => {
+    const mediaObject = {
+      title: inputs.title,
+      description: inputs.description,
+      filename: file.filename,
+      media_type: file.media_type,
+      filesize: file.filesize,
+    };
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify(mediaObject),
+    };
+    const mediaResponse = await fetchData(
+      import.meta.env.VITE_MEDIA_API + '/media',
+      fetchOptions,
+    );
+    // TODO: return the data
+    return mediaResponse;
+  };
+
+  const deleteMedia = async (id, token) => {
+    const options = {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+    };
+
+    return await fetchData(
+      import.meta.env.VITE_MEDIA_API + '/media/' + id,
+      options,
+    );
+  };
+
+  const getMediaById = async (id) => {
+    return await fetchData(import.meta.env.VITE_MEDIA_API + '/media/' + id);
+  };
+
+  const putMedia = async (id, inputs, token) => {
+    const fetchOptions = {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify(inputs),
+    };
+    return await fetchData(
+      import.meta.env.VITE_MEDIA_API + '/media/' + id,
+      fetchOptions,
+    );
+  };
+
+  return {mediaArray, postMedia, deleteMedia, getMediaById, putMedia};
 };
 
 const useUser = () => {
@@ -86,4 +143,25 @@ const useAuthentication = () => {
   return {login};
 };
 
-export {useMedia, useUser, useAuthentication};
+const useFile = () => {
+  const postFile = async (file, token) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+      body: formData,
+    };
+    const fileData = await fetchData(
+      import.meta.env.VITE_UPLOAD_SERVER + '/upload',
+      fetchOptions,
+    );
+    return fileData;
+  };
+
+  return {postFile};
+};
+
+export {useMedia, useAuthentication, useUser, useFile};

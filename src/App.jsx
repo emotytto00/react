@@ -1,26 +1,22 @@
-import './App.css';
-import Home from './views/Home';
 import {Route, BrowserRouter as Router, Routes} from 'react-router-dom';
-import {Profile} from './views/Profile';
-import Upload from './views/Upload';
 import Layout from './views/Layout';
+import Home from './views/Home';
+import Profile from './views/Profile';
+import Upload from './views/Upload';
 import Single from './views/Single';
 import Login from './views/Login';
 import {UserProvider} from './contexts/UserContext';
-import HandleAutoLogin from './components/HandleAutoLogin';
+import Logout from './views/Logout';
 import ProtectedRoute from './components/ProtectedRoute';
+import Modify from './views/Modify';
 
 const App = () => {
-  const basename = import.meta.env.BASE_URL;
-  console.log('basename', basename);
-
   return (
-    <Router basename={basename}>
+    <Router basename={import.meta.env.BASE_URL}>
       <UserProvider>
-        <HandleAutoLogin />
         <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
             <Route
               path="/profile"
               element={
@@ -37,8 +33,17 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/modify/:id"
+              element={
+                <ProtectedRoute>
+                  <Modify />
+                </ProtectedRoute>
+              }
+            />
             <Route path="/media/:id" element={<Single />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
           </Route>
         </Routes>
       </UserProvider>
